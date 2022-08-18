@@ -5,6 +5,7 @@ import com.example.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -17,9 +18,9 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/{id}")
-    public UserModel getUserByID(@PathVariable int id) {
-        return userService.getUserByID(id);
+    @GetMapping("/{userId}")
+    public UserModel getUserByID(@PathVariable int userId) {
+        return userService.getUserByID(userId);
     }
 
     @GetMapping("/all")
@@ -28,7 +29,12 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public void registerNewUser(@RequestBody UserModel userModel) {
-        userService.registerNewUser(userModel);
+    public HashMap<String, Integer> registerNewUser(@RequestBody UserModel userModel) {
+        return userService.registerNewUser(userModel);
+    }
+
+    @PutMapping("/update-information/{userId}")
+    public UserModel updateUser(@RequestBody HashMap<String, String> newInformation, @PathVariable int userId) {
+        return userService.updateUser(newInformation, userId);
     }
 }
