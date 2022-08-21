@@ -11,9 +11,11 @@ import java.util.Map;
 
 @Service
 public class UserService {
+
+    Integer userId = 0;
     HashMap<Integer, UserModel> allUsers = new HashMap<Integer, UserModel>();
 
-    public UserModel getUserByID(int userId) {
+    public UserModel getUserByID(Integer userId) {
         return allUsers.get(userId);
     }
 
@@ -21,26 +23,19 @@ public class UserService {
         return allUsers.values().stream().toList();
     }
 
-    public HashMap<String, Integer> registerNewUser(UserModel userModel) {
-        allUsers.put(userModel.getUserId(), userModel);
-        HashMap<String, Integer> newUser = new HashMap<String, Integer>();
-        newUser.put("userId", userModel.getUserId());
-        return newUser;
+    public Integer registerNewUser(UserModel userModel) {
+        userId++;
+        userModel.setUserId(userId);
+        allUsers.put(userId, userModel);
+        return userModel.getUserId();
     }
 
-    public UserModel updateUser(HashMap<String, String> userInformations, int userId) {
+    public UserModel updateUser(String password, Integer age, Integer userId) {
         UserModel user = allUsers.get(userId);
-        int userAge = Integer.getInteger(userInformations.get("age"));
-        UserModel userWithNewInformation = new UserModel(
-                user.getName(),
-                user.getUserId(),
-                user.getCpf(),
-                user.getEmail(),
-                userInformations.get("password"),
-                user.getAddress(),
-                userAge);
-        allUsers.put(userId, userWithNewInformation);
-        return userWithNewInformation;
+        user.setPassword(password);
+        user.setAge(age);
+        allUsers.put(userId, user);
+        return user;
     }
 }
 

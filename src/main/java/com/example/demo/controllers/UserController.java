@@ -19,7 +19,7 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    public UserModel getUserByID(@PathVariable int userId) {
+    public UserModel getUserByID(@PathVariable Integer userId) {
         return userService.getUserByID(userId);
     }
 
@@ -29,12 +29,12 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public HashMap<String, Integer> registerNewUser(@RequestBody UserModel userModel) {
+    public Integer registerNewUser(@RequestBody UserModel userModel) {
         return userService.registerNewUser(userModel);
     }
 
-    @PutMapping("/update-information/{userId}")
-    public UserModel updateUser(@RequestBody HashMap<String, String> newInformation, @PathVariable int userId) {
-        return userService.updateUser(newInformation, userId);
+    @PutMapping("/update-information/")
+    public UserModel updateUser(@RequestBody HashMap<String, String> userInformations) {
+        return userService.updateUser(userInformations.get("password"), Integer.valueOf(userInformations.get("age")), Integer.valueOf(userInformations.get("userId")));
     }
 }
