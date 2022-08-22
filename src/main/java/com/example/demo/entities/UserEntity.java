@@ -1,35 +1,22 @@
-package com.example.demo.models;
+package com.example.demo.entities;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Map;
-import java.util.Objects;
 
-public class UserModel {
+@Entity
+public class UserEntity {
+    @Id
+    @Column(name = "userId", nullable = false)
+    private Integer userId;
     private String name;
-    private int userId;
     private String cpf;
     private String email;
     private String password;
     private Map<String, String> address;
     private int age;
-
-
-    public UserModel(
-            String name,
-            int userId,
-            String cpf,
-            String email,
-            String password,
-            Map<String, String> address,
-            int age
-    ) {
-        this.name = name;
-        this.userId = userId;
-        this.cpf = cpf;
-        this.email = email;
-        this.password = password;
-        this.address = address;
-        this.age = age;
-    }
 
     public String getName() {
         return name;
@@ -39,11 +26,11 @@ public class UserModel {
         this.name = name;
     }
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
